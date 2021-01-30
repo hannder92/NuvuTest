@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.nuvu.usermanagement.db.entity.CreditCard;
@@ -41,8 +43,17 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	}
 
 	@Override
-	public CreditCard save(CreditCard creditCard) {
-		return creditCardRepository.save(creditCard);
+	public ResponseEntity<Object> save(CreditCard creditCard) {
+		if (findByNumber(creditCard.getNumber()).isPresent()) {
+			return new ResponseEntity<>("Credit card already exists.", HttpStatus.BAD_REQUEST);
+		} else {
+			return new ResponseEntity<>(creditCardRepository.save(creditCard), HttpStatus.CREATED);
+		}
+	}
+
+	@Override
+	public Optional<CreditCard> findByNumber(String number) {
+		return creditCardRepository.findByNumber(number);
 	}
 
 }

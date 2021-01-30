@@ -13,4 +13,6 @@ public interface ICreditCardRepository extends CrudRepository<CreditCard, Long> 
 
 	public Optional<List<CreditCard>> findByUserId(String userId);
 
+	public Optional<CreditCard> findByNumber(String number);
+
 }

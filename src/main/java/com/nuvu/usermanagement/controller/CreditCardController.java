@@ -55,8 +55,8 @@ public class CreditCardController {
 	@PostMapping()
 	@ApiOperation(value = "Create a new credit card", authorizations = { @Authorization(value = "JWT") })
 	@ApiResponse(code = 201, message = "CREATED")
-	public ResponseEntity<CreditCard> save(@RequestBody CreditCard creditCard) {
-		return new ResponseEntity<>(creditCardService.save(creditCard), HttpStatus.CREATED);
+	public ResponseEntity<Object> save(@RequestBody CreditCard creditCard) {
+		return creditCardService.save(creditCard);
 	}
 
 	@DeleteMapping("/{id}")

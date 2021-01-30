@@ -16,7 +16,7 @@ public interface IUserService {
 
 	boolean deleteById(String id);
 
-	User save(User user);
+	ResponseEntity<Object> save(User user);
 
 	ResponseEntity<User> update(String id, UpdateUserRequestDTO user);
 

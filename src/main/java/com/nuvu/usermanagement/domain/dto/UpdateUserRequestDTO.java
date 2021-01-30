@@ -7,14 +7,6 @@ import javax.validation.constraints.Size;
 
 public class UpdateUserRequestDTO {
 
-	@NotNull(message = "name can not be empty or null")
-	@Size(min = 5, message = "name must be at least 5 characters")
-	private String name;
-
-	@NotNull(message = "lastname can not be empty or null")
-	@Size(min = 5, message = "lastname must be at least 5 characters")
-	private String lastName;
-
 	@NotNull(message = "cellphone can not be empty or null")
 	@Digits(message = "cellphone should be contains only numbers", fraction = 0, integer = 10)
 	private String cellphone;
@@ -26,22 +18,6 @@ public class UpdateUserRequestDTO {
 	@NotNull(message = "adress can not be empty or null")
 	@Size(min = 5, message = "address must be at least 5 characters")
 	private String address;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
 	public String getCellphone() {
 		return cellphone;

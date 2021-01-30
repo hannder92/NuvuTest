@@ -15,12 +15,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "user")
 public class User {
 
 	@Id
 	@NotNull(message = "id can not be null")
+	@Digits(message = "document id should be contains only numbers", fraction = 0, integer = 15)
 	private String id;
 
 	@NotNull(message = "name can not be empty or null")
@@ -34,6 +37,7 @@ public class User {
 
 	@NotNull(message = "cellphone can not be empty or null")
 	@Digits(message = "cellphone should be contains only numbers", fraction = 0, integer = 10)
+	@Column(unique = true)
 	private String cellphone;
 
 	@NotNull(message = "address can not be empty or null")
@@ -46,11 +50,13 @@ public class User {
 
 	@NotNull(message = "name can not be empty or null")
 	@Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is not valid")
+	@Column(unique = true)
 	private String email;
 
-	@Column(name = "created_at")
+	@Column(name = "created_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime createdAt;
 
+	@ApiModelProperty(required = false, hidden = true)
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
 	List<CreditCard> creditCards;
 

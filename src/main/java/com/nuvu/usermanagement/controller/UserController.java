@@ -57,8 +57,8 @@ public class UserController {
 	@PostMapping()
 	@ApiOperation(value = "Create user", authorizations = { @Authorization(value = "JWT") })
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
+		return userService.save(user);
 	}
 
 	@ApiOperation(value = "Delete user by id", authorizations = { @Authorization(value = "JWT") })

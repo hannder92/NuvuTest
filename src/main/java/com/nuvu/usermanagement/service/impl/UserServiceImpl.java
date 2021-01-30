@@ -40,15 +40,17 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User save(User user) {
-		return userRepository.save(user);
+	public ResponseEntity<Object> save(User user) {
+		if (findById(user.getId()).isPresent()) {
+			return new ResponseEntity<>("User already exists.", HttpStatus.BAD_REQUEST);
+		} else {
+			return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+		}
 	}
 
 	@Override
 	public ResponseEntity<User> update(String id, UpdateUserRequestDTO user) {
 		return findById(id).map(userToUpdate -> {
-			userToUpdate.setName(user.getName());
-			userToUpdate.setLastName(user.getLastName());
 			userToUpdate.setEmail(user.getEmail());
 			userToUpdate.setCellphone(user.getCellphone());
 			userToUpdate.setAddress(user.getAddress());
