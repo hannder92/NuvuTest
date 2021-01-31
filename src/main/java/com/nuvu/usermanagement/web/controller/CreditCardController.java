@@ -38,7 +38,7 @@ public class CreditCardController {
 
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Return a credit card by ID", authorizations = { @Authorization(value = "JWT") })
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "Credit card not found") })
 	public ResponseEntity<CreditCard> getById(@PathVariable long id) {
 		return creditCardService.getById(id).map(creditCard -> new ResponseEntity<>(creditCard, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -46,7 +46,7 @@ public class CreditCardController {
 
 	@GetMapping("/user/{id}")
 	@ApiOperation(value = "Get a list of credit cards by user ID", authorizations = { @Authorization(value = "JWT") })
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "The user does not have any credit card") })
 	public ResponseEntity<List<CreditCard>> getByUserId(@PathVariable(name = "id") String userId) {
 		return creditCardService.findByUserId(userId)
 				.map(creditCardList -> new ResponseEntity<>(creditCardList, HttpStatus.OK))
@@ -62,7 +62,7 @@ public class CreditCardController {
 
 	@DeleteMapping("/{id}")
 	@ApiOperation(value = "Delete credit card by ID", authorizations = { @Authorization(value = "JWT") })
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "Credit card not exists") })
 	public ResponseEntity<Void> delete(@PathVariable long id) {
 		if (creditCardService.deleteById(id)) {
 			return new ResponseEntity<>(HttpStatus.OK);
