@@ -1,6 +1,7 @@
 package com.nuvu.usermanagement.domain.service;
 
 import com.nuvu.usermanagement.domain.User;
+import com.nuvu.usermanagement.domain.dto.UpdateUserRequestDTO;
 import com.nuvu.usermanagement.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,22 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean delete(String userId){
+    public User update(String userId, UpdateUserRequestDTO request) {
+        return getById(userId).map(user -> {
+            user.setAddress(request.getAddress());
+            user.setCellphone(request.getCellphone());
+            user.setEmail(request.getEmail());
+            return userRepository.save(user);
+        }).orElse(null);
+
+    }
+
+    public boolean delete(String userId) {
         return getById(userId).map(user -> {
             userRepository.delete(userId);
             return true;
         }).orElse(false);
     }
+
 
 }

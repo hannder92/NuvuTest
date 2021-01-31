@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.nuvu.usermanagement.domain.service.UserService;
 import com.nuvu.usermanagement.domain.User;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +48,17 @@ public class UserController {
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-//	@PutMapping("/{id}")
-//	@ApiOperation(value = "Update user", authorizations = { @Authorization(value = "JWT") })
-//	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
-//	public ResponseEntity<User> updateUser(@PathVariable String id, @Valid @RequestBody UpdateUserRequestDTO request) {
-//		return userService.update(id, request);
-//	}
+	@PutMapping("/{id}")
+	@ApiOperation(value = "Update user", authorizations = { @Authorization(value = "JWT") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK",response = User.class), @ApiResponse(code = 404, message = "") })
+	public ResponseEntity<User> updateUser(@PathVariable String id, @Valid @RequestBody UpdateUserRequestDTO request) {
+		User user = userService.update(id, request);
+		if(user!= null){
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		}else{
+			return new ResponseEntity("User does not exist",HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@PostMapping()
 	@ApiOperation(value = "Create user", authorizations = { @Authorization(value = "JWT") })
