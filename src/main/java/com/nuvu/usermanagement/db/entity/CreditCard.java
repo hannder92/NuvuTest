@@ -40,6 +40,10 @@ public class CreditCard {
 	@Digits(message = "User id should be contains only numbers", fraction = 0, integer = 15)
 	private String userId;
 
+	@Digits(message = "cvv should be contains only numbers", fraction = 0, integer = 3)
+	@Size(min = 3, max = 3, message = "Cvv must be 3 digits")
+	private String cvv;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
