@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.security;
+package com.nuvu.usermanagement.web.security;
 
 import java.util.Date;
 

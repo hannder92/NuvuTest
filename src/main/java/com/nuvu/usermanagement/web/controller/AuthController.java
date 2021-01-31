@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.controller;
+package com.nuvu.usermanagement.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nuvu.usermanagement.domain.dto.AuthenticationRequest;
 import com.nuvu.usermanagement.domain.dto.AuthenticationResponse;
-import com.nuvu.usermanagement.security.JWTUtil;
-import com.nuvu.usermanagement.service.impl.NuvuUserDetailsService;
+import com.nuvu.usermanagement.web.security.JWTUtil;
+import com.nuvu.usermanagement.domain.service.NuvuUserDetailsService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

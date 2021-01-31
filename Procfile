@@ -1,1 +1,1 @@
-web: java -jar -Dspring.profiles.active=pdn build/libs/user-management-1.0.0.jar
+web: java -jar -Dspring.profiles.active=pdn build/libs/userEntity-management-1.0.0.jar

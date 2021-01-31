@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.db.entity;
+package com.nuvu.usermanagement.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,36 +17,28 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "credit_card")
-public class CreditCard {
+public class CreditCardEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(required = false, hidden = true)
 	private Long id;
 
 	@Column(unique = true)
-	@Digits(message = "card number should be contains only numbers", fraction = 0, integer = 16)
 	private String number;
 
-	@NotNull(message = "card user name can not be empty or null")
-	@Size(min = 5, message = "name must be at least 5 characters")
 	private String username;
 
 	@Column(name = "expiration_date")
-	@Pattern(regexp = "(0[1-9]|10|11|12)/[0-9]{2}$", message = "expiration date must be in format MM/yy")
 	private String expirationDate;
 
 	@Column(name = "user_id")
-	@Digits(message = "User id should be contains only numbers", fraction = 0, integer = 15)
 	private String userId;
 
-	@Digits(message = "cvv should be contains only numbers", fraction = 0, integer = 3)
-	@Size(min = 3, max = 3, message = "Cvv must be 3 digits")
 	private String cvv;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private User user;
+	private UserEntity userEntity;
 
 	public Long getId() {
 		return id;
@@ -86,6 +78,14 @@ public class CreditCard {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
 	}
 
 }

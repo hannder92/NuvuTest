@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.service.impl;
+package com.nuvu.usermanagement.domain.service;
 
 import java.util.ArrayList;
 

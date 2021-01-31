@@ -1,7 +1,9 @@
-package com.nuvu.usermanagement.controller;
+package com.nuvu.usermanagement.web.controller;
 
 import java.util.List;
 
+import com.nuvu.usermanagement.domain.CreditCard;
+import com.nuvu.usermanagement.domain.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nuvu.usermanagement.db.entity.CreditCard;
-import com.nuvu.usermanagement.service.ICreditCardService;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Authorization;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/creditCards")
 public class CreditCardController {
 
 	@Autowired
-	private ICreditCardService creditCardService;
+	private CreditCardService creditCardService;
 
 	@GetMapping()
 	@ApiOperation(value = "Return all credit cards", authorizations = { @Authorization(value = "JWT") })
@@ -39,7 +40,7 @@ public class CreditCardController {
 	@ApiOperation(value = "Return a credit card by ID", authorizations = { @Authorization(value = "JWT") })
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "") })
 	public ResponseEntity<CreditCard> getById(@PathVariable long id) {
-		return creditCardService.findById(id).map(creditCard -> new ResponseEntity<>(creditCard, HttpStatus.OK))
+		return creditCardService.getById(id).map(creditCard -> new ResponseEntity<>(creditCard, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
@@ -55,8 +56,8 @@ public class CreditCardController {
 	@PostMapping()
 	@ApiOperation(value = "Create a new credit card", authorizations = { @Authorization(value = "JWT") })
 	@ApiResponse(code = 201, message = "CREATED")
-	public ResponseEntity<Object> save(@RequestBody CreditCard creditCard) {
-		return creditCardService.save(creditCard);
+	public ResponseEntity<CreditCard> save(@Valid @RequestBody CreditCard creditCard) {
+		return new ResponseEntity(creditCardService.save(creditCard), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")

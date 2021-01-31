@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.config;
+package com.nuvu.usermanagement.web.config;
 
 import java.util.Arrays;
 
@@ -19,7 +19,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).securitySchemes(Arrays.asList(apiKey())).select()
-				.apis(RequestHandlerSelectors.basePackage("com.nuvu.usermanagement.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.nuvu.usermanagement.web.controller"))
 				.paths(PathSelectors.any()).build();
 	}
 

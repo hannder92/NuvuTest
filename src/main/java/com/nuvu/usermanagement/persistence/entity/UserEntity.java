@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.db.entity;
+package com.nuvu.usermanagement.persistence.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,46 +19,32 @@ import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserEntity {
 
 	@Id
-	@NotNull(message = "id can not be null")
-	@Digits(message = "document id should be contains only numbers", fraction = 0, integer = 15)
 	private String id;
 
-	@NotNull(message = "name can not be empty or null")
-	@Size(min = 5, message = "name must be at least 5 characters")
 	private String name;
 
-	@NotNull(message = "lastname can not be empty or null")
-	@Size(min = 5, message = "lastname must be at least 5 characters")
 	@Column(name = "last_name")
 	private String lastName;
 
-	@NotNull(message = "cellphone can not be empty or null")
-	@Digits(message = "cellphone should be contains only numbers", fraction = 0, integer = 10)
 	@Column(unique = true)
 	private String cellphone;
 
-	@NotNull(message = "address can not be empty or null")
-	@Size(min = 5, message = "address must be at least 5 characters")
 	private String address;
 
-	@Past(message = "birthDate must be earlier than actual date")
 	@Column(name = "birth_date")
 	private LocalDateTime birthDate;
 
-	@NotNull(message = "name can not be empty or null")
-	@Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Email is not valid")
 	@Column(unique = true)
 	private String email;
 
 	@Column(name = "created_at", columnDefinition = "TIMESTAMP")
 	private LocalDateTime createdAt;
 
-	@ApiModelProperty(required = false, hidden = true)
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
-	List<CreditCard> creditCards;
+	List<CreditCardEntity> creditCardEntities;
 
 	public String getId() {
 		return id;
@@ -100,12 +86,12 @@ public class User {
 		this.email = email;
 	}
 
-	public List<CreditCard> getCreditCards() {
-		return creditCards;
+	public List<CreditCardEntity> getCreditCards() {
+		return creditCardEntities;
 	}
 
-	public void setCreditCards(List<CreditCard> creditCards) {
-		this.creditCards = creditCards;
+	public void setCreditCards(List<CreditCardEntity> creditCardEntities) {
+		this.creditCardEntities = creditCardEntities;
 	}
 
 	public String getAddress() {

@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.security.filter;
+package com.nuvu.usermanagement.web.security.filter;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.nuvu.usermanagement.security.JWTUtil;
-import com.nuvu.usermanagement.service.impl.NuvuUserDetailsService;
+import com.nuvu.usermanagement.web.security.JWTUtil;
+import com.nuvu.usermanagement.domain.service.NuvuUserDetailsService;
 
 @Component
 public class JwtFilterRequest extends OncePerRequestFilter {

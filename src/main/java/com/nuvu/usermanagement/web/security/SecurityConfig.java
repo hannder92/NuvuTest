@@ -1,4 +1,4 @@
-package com.nuvu.usermanagement.security;
+package com.nuvu.usermanagement.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.nuvu.usermanagement.security.filter.JwtFilterRequest;
-import com.nuvu.usermanagement.service.impl.NuvuUserDetailsService;
+import com.nuvu.usermanagement.web.security.filter.JwtFilterRequest;
+import com.nuvu.usermanagement.domain.service.NuvuUserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
